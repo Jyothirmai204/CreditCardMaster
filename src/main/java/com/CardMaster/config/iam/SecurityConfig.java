@@ -57,7 +57,7 @@ public class SecurityConfig {
                         .hasAnyRole("CUSTOMER", "OPERATIONS_ANALYST", "ADMIN")
 
                         // --- Billing & Rewards ---
-                        .requestMatchers("/billing/**").hasRole("OPERATIONS_ANALYST")
+                       // .requestMatchers("/billing/**").hasRole("OPERATIONS_ANALYST")
                         .requestMatchers("/rewards/**").hasAnyRole("CUSTOMER", "ADMIN")
 
                         // --- Fraud Monitoring ---
@@ -83,14 +83,16 @@ public class SecurityConfig {
                         .hasAnyRole("ADMIN", "OFFICER", "RISK")
 
                         // --- Module 7: BSP ---
+                        .requestMatchers(HttpMethod.POST, "/billing/payments/capture")
+                        .hasAnyRole("CUSTOMER", "ADMIN", "OFFICER")
                         .requestMatchers(HttpMethod.POST, "/billing/statements/generate")
                         .hasAnyRole("ADMIN", "OFFICER")
                         .requestMatchers(HttpMethod.POST, "/billing/statements/close/*")
                         .hasAnyRole("ADMIN", "OFFICER")
                         .requestMatchers(HttpMethod.GET, "/billing/statements/**")
                         .hasAnyRole("CUSTOMER", "ADMIN", "OFFICER")
-                        .requestMatchers(HttpMethod.POST, "/billing/payments/capture")
-                        .hasAnyRole("CUSTOMER", "ADMIN", "OFFICER")
+                        //.requestMatchers(HttpMethod.POST, "/billing/payments/capture")
+                        //.hasAnyRole("CUSTOMER", "ADMIN", "OFFICER")
                         .requestMatchers(HttpMethod.GET, "/billing/payments/**")
                         .hasAnyRole("CUSTOMER", "ADMIN", "OFFICER")
 
